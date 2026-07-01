@@ -33,6 +33,7 @@ class Task(db.Model):
         data['updated_at'] = str(self.updated_at)
         data['due_date'] = str(self.due_date) if self.due_date else None
         data['tags'] = self.tags.split(',') if self.tags else []
+        data['overdue'] = self.is_overdue()
         return data
 
     def validate_status(self, new_status):
