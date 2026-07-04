@@ -35,6 +35,7 @@ Antes de construir a skill, os 3 projetos foram lidos arquivo a arquivo para ent
 | MEDIUM | Estado global mutável (`globalCache`, `totalRevenue`) escrito por qualquer requisição | Condição de corrida / vazamento de dados entre usuários sob concorrência |
 | MEDIUM | API `sqlite3` em estilo callback + banco só em memória (API obsoleta) | Callback hell e nenhuma persistência real entre execuções |
 | LOW | Variáveis de uma/duas letras no checkout (`u`, `e`, `p`, `cc`) | Cada leitura exige redescobrir o significado pelo contexto |
+| LOW | Contrato de resposta inconsistente (erros em texto puro via `res.send()`, sucessos em JSON via `res.json()`) | Clientes da API precisam tratar dois formatos de resposta diferentes conforme o caminho de erro |
 
 ### Projeto 3 — `task-manager-api` (Python/Flask, já parcialmente em camadas)
 
@@ -48,6 +49,7 @@ Antes de construir a skill, os 3 projetos foram lidos arquivo a arquivo para ent
 | MEDIUM | N+1: relatório de produtividade roda uma query por usuário dentro de um loop Python | Custo O(usuários) a mais a cada chamada do relatório mais usado do sistema |
 | MEDIUM | Nenhum endpoint de listagem pagina resultados | Resposta cresce sem limite |
 | LOW | `utils/helpers.py` define constantes (`VALID_STATUSES`, `MAX_TITLE_LENGTH`...) que nenhuma rota usa — as rotas repetem os mesmos literais | Fonte "oficial" da regra não é a fonte real usada pelo código |
+| LOW | Logging inteiro via `print()`, sem níveis, timestamps ou estrutura | Impossível filtrar por severidade ou integrar com agregação de logs em produção |
 
 ---
 
